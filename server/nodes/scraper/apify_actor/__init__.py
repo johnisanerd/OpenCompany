@@ -276,7 +276,17 @@ class ApifyActorNode(ActionNode):
         if not actor_id:
             raise NodeUserError("Actor ID is required")
 
+        from .linkedin_profile import (
+            OPTIONAL_PROFILE_ACTOR,
+            accept_profile_items,
+            map_profile_run_input,
+            resolve_profile_actor,
+        )
+
+        actor_id = resolve_profile_actor(actor_id)
         actor_input = _build_actor_input(params.model_dump())
+        if actor_id == OPTIONAL_PROFILE_ACTOR:
+            actor_input = map_profile_run_input(actor_input)
         timeout_secs = params.timeout
         max_results = params.max_results
         memory_mbytes = int(params.memory)
@@ -308,6 +318,8 @@ class ApifyActorNode(ActionNode):
         if dataset_id:
             listing = await client.dataset(dataset_id).list_items(limit=max_results)
             items = listing.items if listing else []
+            if actor_id == OPTIONAL_PROFILE_ACTOR:
+                items = accept_profile_items(items)
             logger.info(f"[Apify] Actor {actor_id} completed: {len(items)} items")
 
         return ApifyActorOutput(

@@ -55,6 +55,8 @@ Actor presets (`actor_id`): `apify/instagram-scraper`, `clockworks/tiktok-scrape
 `compass/crawler-google-places`, `apify/website-content-crawler`,
 `curious_coder/web-scraper`, `custom`.
 
+`apify/linkedin-scraper` stays the LinkedIn preset. It has no profile URL field. A profile-URL actor is off unless `OPENCOMPANY_LINKEDIN_PROFILE_ACTOR` is `johnvc/linkedin-profile-api`. That switch applies only when the requested actor id is `curious_coder/linkedin-profile-scraper`, the actor named in the Apify skill. The adapter then sends `profileUrls` and keeps items with `result_type` `profile`. See [the Apify skill](../../../server/skills/web_agent/apify-skill/SKILL.md).
+
 ## Outputs (handles)
 
 | Handle | Shape | Description |

@@ -44,6 +44,15 @@ Run any Apify actor and retrieve scraped results.
 | Web Crawler | `apify/website-content-crawler` | Any website content |
 | Web Scraper | `apify/web-scraper` | Custom scraping with selectors |
 
+The LinkedIn row above stays the default. The node preset `apify/linkedin-scraper` is a separate actor and is left as it is. It has no profile URL field.
+
+To run a profile-URL actor instead, set `OPENCOMPANY_LINKEDIN_PROFILE_ACTOR` to `johnvc/linkedin-profile-api` in the server environment. Ask for `curious_coder/linkedin-profile-scraper` as the actor id. The adapter sends the caller's profile URLs as `profileUrls` and keeps rows whose `result_type` is `profile`. `email` is null. Use a vanity `/in/` URL.
+
+- Actor: https://apify.com/johnvc/linkedin-profile-api
+- https://alphaosint.com/
+
+Unset the variable to go back to the current actor. Nothing else in this table changes.
+
 ### Response Format
 
 ```json
